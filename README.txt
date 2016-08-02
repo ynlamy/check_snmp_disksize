@@ -6,7 +6,7 @@ Usage: ./check_snmp_disksize -H 127.0.0.1 -C public -d C: -w 80 -c 90
 
 -H ADDRESS
 Name or IP address of host (default: 127.0.0.1)
--C STRING"
+-C STRING
 Community name for the host's SNMP agent (default: public)
 -d STRING
 Drive letter (C:) or mount point (/home)
