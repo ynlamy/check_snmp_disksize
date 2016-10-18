@@ -2,7 +2,7 @@ This plugin can check the disk size of Windows server and Unix server using SNMP
 
 check_snmp_disksize is written in Bash and is distributed under the GPLv2 license. This plugin have been created by Yoann LAMY.
 
-Usage: ./check_snmp_disksize -H 127.0.0.1 -C public -d C: -w 80 -c 90
+Usage: ./check_snmp_disksize -H xxx.xxx.xxx.xxx -C public -d C: -w 80 -c 90
 
 -H ADDRESS
 Name or IP address of host (default: 127.0.0.1)
