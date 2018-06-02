@@ -2,7 +2,7 @@
 
 # check_snmp_disksize
 # Description : Check the disk size of Windows server and Unix server
-# Version : 1.6
+# Version : 1.7
 # Author : Yoann LAMY
 # Licence : GPLv2
 
@@ -19,7 +19,7 @@ CMD_EXPR="/usr/bin/expr"
 SCRIPTNAME=`$CMD_BASENAME $0`
 
 # Version
-VERSION="1.6"
+VERSION="1.7"
 
 # Plugin return codes
 STATE_OK=0
@@ -57,8 +57,8 @@ print_usage() {
   echo "  $SCRIPTNAME -H ADDRESS"
   echo "  $SCRIPTNAME -C STRING"
   echo "  $SCRIPTNAME -d STRING"
-  echo "  $SCRIPTNAME -w INTEGER" 
-  echo "  $SCRIPTNAME -c INTEGER" 
+  echo "  $SCRIPTNAME -w INTEGER"
+  echo "  $SCRIPTNAME -c INTEGER"
   echo "  $SCRIPTNAME -h"
   echo "  $SCRIPTNAME -V"
 }
@@ -66,8 +66,8 @@ print_usage() {
 print_version() {
   echo $SCRIPTNAME version $VERSION
   echo ""
-  echo "This nagios plugins comes with ABSOLUTELY NO WARRANTY."  
-  echo "You may redistribute copies of the plugins under the terms of the GNU General Public License v2." 
+  echo "This nagios plugins comes with ABSOLUTELY NO WARRANTY."
+  echo "You may redistribute copies of the plugins under the terms of the GNU General Public License v2."
 }
 
 print_help() {
@@ -86,7 +86,7 @@ print_help() {
   echo "-w INTEGER"
   echo "   Warning level for size in percent (default: 0)"
   echo "-c INTEGER"
-  echo "   Critical level for size in percent (default: 0)"  
+  echo "   Critical level for size in percent (default: 0)"
   echo "-h"
   echo "   Print this help screen"
   echo "-V"
@@ -95,7 +95,7 @@ print_help() {
   echo ""
   echo "This plugin uses the 'snmpget' command and the 'snmpwalk' command included with the NET-SNMP package."
   echo "This plugin support performance data output."
-  echo "If the percentage of the warning and critical levels are set 0, then the script returns a OK state."      
+  echo "If the percentage of the warning and critical levels are set 0, then the script returns a OK state."
 }
 
 while getopts H:C:d:w:c:hV OPT
@@ -105,8 +105,8 @@ do
     C) COMMUNITY="$OPTARG" ;;
     d) DISK="$OPTARG" ;;
     w) WARNING=$OPTARG ;;
-    c) CRITICAL=$OPTARG ;; 
-    h) 
+    c) CRITICAL=$OPTARG ;;
+    h)
       print_help
       exit $STATE_UNKNOWN
       ;;
@@ -127,16 +127,16 @@ fi
 size_convert() {
   if [ $VALUE -ge 1099511627776 ]; then
     VALUE=`echo "scale=2 ; ( ( ( $VALUE / 1024 ) / 1024 ) / 1024 ) / 1024" | $CMD_BC`
-    VALUE="$VALUE To"
+    VALUE="$VALUE TB"
   elif [ $VALUE -ge 1073741824 ]; then
     VALUE=`echo "scale=2 ; ( ( $VALUE / 1024 ) / 1024 ) / 1024" | $CMD_BC`
-    VALUE="$VALUE Go"
+    VALUE="$VALUE GB"
   elif [ $VALUE -ge 1048576 ]; then
     VALUE=`echo "scale=2 ; ( $VALUE / 1024 ) / 1024" | $CMD_BC`
-    VALUE="$VALUE Mo"
+    VALUE="$VALUE MB"
   else
     VALUE=`echo "scale=2 ; $VALUE / 1024" | $CMD_BC`
-    VALUE="$VALUE Octets"
+    VALUE="$VALUE Bytes"
   fi
 }
 
