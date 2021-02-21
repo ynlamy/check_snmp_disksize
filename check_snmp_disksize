@@ -2,7 +2,7 @@
 
 # check_snmp_disksize
 # Description : Check the disk size of Windows server and Unix server
-# Version : 1.7
+# Version : 1.8
 # Author : Yoann LAMY
 # Licence : GPLv2
 
@@ -19,7 +19,7 @@ CMD_EXPR="/usr/bin/expr"
 SCRIPTNAME=`$CMD_BASENAME $0`
 
 # Version
-VERSION="1.7"
+VERSION="1.8"
 
 # Plugin return codes
 STATE_OK=0
@@ -196,7 +196,7 @@ if [ -n "$DISK_DESC" ]; then
     size_convert
     DISK_USED_FORMAT=$VALUE
 
-    DESCRIPTION="Disk/partition usage '$DISK' $DISK_LABEL : $DISK_USED_FORMAT utilise sur $DISK_TOTAL_FORMAT (${DISK_USED_POURCENT}%) | total=${DISK_TOTAL}B;$PERFDATA_WARNING;$PERFDATA_CRITICAL;0 used=${DISK_USED}B;0;0;0"
+    DESCRIPTION="Disk/partition usage '$DISK' $DISK_LABEL : $DISK_USED_FORMAT used for a total of $DISK_TOTAL_FORMAT (${DISK_USED_POURCENT}%) | total=${DISK_TOTAL}B;$PERFDATA_WARNING;$PERFDATA_CRITICAL;0 used=${DISK_USED}B;0;0;0"
   fi
 fi
 
