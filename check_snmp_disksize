@@ -2,24 +2,24 @@
 
 # check_snmp_disksize
 # Description : Check the disk size of Windows server and Unix server
-# Version : 1.8
+# Version : 1.9
 # Author : Yoann LAMY
 # Licence : GPLv2
 
 # Commands
-CMD_BASENAME="/bin/basename"
+CMD_BASENAME="/usr/bin/basename"
 CMD_SNMPGET="/usr/bin/snmpget"
 CMD_SNMPWALK="/usr/bin/snmpwalk"
 CMD_BC="/usr/bin/bc"
-CMD_AWK="/bin/awk"
-CMD_GREP="/bin/grep"
+CMD_AWK="/usr/bin/awk"
+CMD_GREP="/usr/bin/grep"
 CMD_EXPR="/usr/bin/expr"
 
 # Script name
 SCRIPTNAME=`$CMD_BASENAME $0`
 
 # Version
-VERSION="1.8"
+VERSION="1.9"
 
 # Plugin return codes
 STATE_OK=0
@@ -43,6 +43,7 @@ OID_USED=".1.3.6.1.2.1.25.2.3.1.6"
 DESCRIPTION="Unknown"
 STATE=$STATE_UNKNOWN
 CODE=0
+DISK_LABEL=""
 
 # Default options
 COMMUNITY="public"
@@ -146,7 +147,7 @@ size_fix() {
   fi
 }
 
-DISK_DESC=`$CMD_SNMPWALK -t 2 -r 2 -v 1 -c $COMMUNITY $HOSTNAME "$OID_DESC" | $CMD_GREP "$DISK"`
+DISK_DESC=`$CMD_SNMPWALK -t 2 -r 2 -v 1 -c $COMMUNITY $HOSTNAME "$OID_DESC" | $CMD_GREP -w "$DISK"`
 
 if [ -n "$DISK_DESC" ]; then
   DISK_ID=`echo $DISK_DESC | $CMD_AWK '{print $1}' | $CMD_AWK -F "." '{print $NF}'`
